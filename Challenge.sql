@@ -11,4 +11,4 @@ CITY not like '%o' and
 CITY not like '%i' and
 CITY not like '%u' 
 
--- to be edited later
+
