@@ -26,6 +26,14 @@ order by employee_id asc;
 --- MySQL
 select CEILING(AVG(Salary) - AVG(REPLACE(Salary,'0',''))) from EMPLOYEES where Salary between 1000 and 100000;
 
+--- Oracle
+SELECT CEIL(AVG(Salary) - AVG(REPLACE(TO_CHAR(Salary), '0', '')))
+FROM EMPLOYEES
+WHERE Salary BETWEEN 1000 AND 100000;
+
+
+--- 
+
 
 
 
