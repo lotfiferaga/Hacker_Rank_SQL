@@ -23,5 +23,9 @@ select name from Employee where salary > 2000 and months < 10
 order by employee_id asc;
 
 
+--- MySQL
+select CEILING(AVG(Salary) - AVG(REPLACE(Salary,'0',''))) from EMPLOYEES where Salary between 1000 and 100000;
+
+
 
 
