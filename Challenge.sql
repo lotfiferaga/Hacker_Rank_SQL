@@ -43,7 +43,7 @@ select
 from TRIANGLES;
 
 
---- 
+---  
 select CONCAT(Name,'(',SUBSTRING(Occupation,1,1),')') from OCCUPATIONS order by Name asc;
 select CONCAT('There are a total of',' ',COUNT(Occupation),' ',LOWER(Occupation),'s.')from OCCUPATIONS group by Occupation
 order by COUNT(Occupation) asc, Occupation asc; 
