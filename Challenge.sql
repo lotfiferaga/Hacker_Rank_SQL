@@ -48,6 +48,37 @@ select CONCAT(Name,'(',SUBSTRING(Occupation,1,1),')') from OCCUPATIONS order by 
 select CONCAT('There are a total of',' ',COUNT(Occupation),' ',LOWER(Occupation),'s.')from OCCUPATIONS group by Occupation
 order by COUNT(Occupation) asc, Occupation asc; 
 
+--- 
+WITH SortedData AS (
+    SELECT
+        Name,
+        Occupation,
+        ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) AS RowNum
+    FROM OCCUPATIONS
+),
+PivotedData AS (
+    SELECT
+        d1.Name AS Doctor,
+        d2.Name AS Professor,
+        d3.Name AS Singer,
+        d4.Name AS Actor
+    FROM
+        (SELECT Name, RowNum FROM SortedData WHERE Occupation = 'Doctor') d1
+        FULL OUTER JOIN (SELECT Name, RowNum FROM SortedData WHERE Occupation = 'Professor') d2
+        ON d1.RowNum = d2.RowNum
+        FULL OUTER JOIN (SELECT Name, RowNum FROM SortedData WHERE Occupation = 'Singer') d3
+        ON COALESCE(d1.RowNum, d2.RowNum) = d3.RowNum
+        FULL OUTER JOIN (SELECT Name, RowNum FROM SortedData WHERE Occupation = 'Actor') d4
+        ON COALESCE(d1.RowNum, d2.RowNum, d3.RowNum) = d4.RowNum
+)
+SELECT
+    COALESCE(Doctor, 'NULL') AS Doctor,
+    COALESCE(Professor, 'NULL') AS Professor,
+    COALESCE(Singer, 'NULL') AS Singer,
+    COALESCE(Actor, 'NULL') AS Actor
+FROM PivotedData;
+
+
 
 
 
