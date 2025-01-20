@@ -2,4 +2,9 @@ SELECT SUM(POPULATION) FROM CITY
 WHERE DISTRICT = 'California';
 
 
-SELECT ROUND(AVG(POPULATION),0) FROM CITY; -- Rounded to the nearest integer so we take 0 decimals
+SELECT ROUND(AVG(POPULATION),0) FROM CITY; -- Rounded to the nearest integer so we take 0 decimals (DB2)
+
+
+SELECT COUNTRY.Continent, FLOOR(AVG(CITY.Population)) 
+FROM COUNTRY JOIN CITY ON  CITY.CountryCode = COUNTRY.Code
+GROUP BY COUNTRY.Continent;  -- ROUNDED DOWN MySQL
