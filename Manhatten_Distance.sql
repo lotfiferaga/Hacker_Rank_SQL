@@ -1,0 +1,2 @@
+select ROUND(CAST(ABS(Min(LAT_N)-Max(LAT_N)) + ABS(Min(LONG_W)-Max(LONG_W)) AS DECIMAL(10,4)),4)
+from STATION;
